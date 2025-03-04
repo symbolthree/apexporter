@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch4jConfig>
+  <dontWrapJar>false</dontWrapJar>
+  <headerType>console</headerType>
+  <jar>D:\WORK\APEXTool\APEXporter.jar</jar>
+  <outfile>D:\WORK\APEXTool\APEXporter.exe</outfile>
+  <errTitle></errTitle>
+  <cmdLine></cmdLine>
+  <chdir></chdir>
+  <priority>normal</priority>
+  <downloadUrl>http://java.com/download</downloadUrl>
+  <supportUrl></supportUrl>
+  <stayAlive>false</stayAlive>
+  <manifest></manifest>
+  <icon>D:\WORK\APEXTool\apexporter-icon.ico</icon>
+  <singleInstance>
+    <mutexName>APEXporter</mutexName>
+    <windowTitle>APEXporter</windowTitle>
+  </singleInstance>
+  <jre>
+    <path></path>
+    <bundledJre64Bit>false</bundledJre64Bit>
+    <minVersion>1.8.0</minVersion>
+    <maxVersion></maxVersion>
+    <jdkPreference>preferJre</jdkPreference>
+    <runtimeBits>64/32</runtimeBits>
+  </jre>
+  <versionInfo>
+    <fileVersion>@build.version@.@build.number@.0</fileVersion>
+    <txtFileVersion>@build.version@ build @build.number@</txtFileVersion>
+    <fileDescription>APEXporter</fileDescription>
+    <copyright>www.symbolthree.com 2025</copyright>
+    <productVersion>@build.version@.@build.number@.0</productVersion>
+    <txtProductVersion>@build.version@ build @build.number@</txtProductVersion>
+    <productName>APEXporter</productName>
+    <companyName>www.symbolthree.com</companyName>
+    <internalName>APEXExporter</internalName>
+    <originalFilename>APEXporter.exe</originalFilename>
+  </versionInfo>
+</launch4jConfig>

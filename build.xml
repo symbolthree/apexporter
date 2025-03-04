@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
++================================================
+|  APEXporter build Script
++================================================
+-->
+<project name="APEXporter" default="zip" basedir=".">
+    <tstamp/>
+    <property name="launch4j.dir" location="D:\WORK\launch4j" />
+    <taskdef name="launch4j"
+             classname="net.sf.launch4j.ant.Launch4jTask"
+             classpath="${launch4j.dir}/launch4j.jar:${launch4j.dir}/lib/xstream.jar"
+    />
+  <target name="init">
+    <propertyfile file="build.properties">
+      <entry key="build.version" type="string" value="3.0"/>
+      <entry key="build.number"  type="int"    operation="+" default="0"/>
+      <entry key="build.time"    type="date"   value="now"/>
+      <entry key="build.product" type="string" value="APEXporter"/>
+    </propertyfile>
+    <property file="build.properties"/>
+    <property name="outputDir" value="build"/>
+    <property name="unpackDir" value="unpack"/>
+    <property name="outputArchive" value="${outputDir}/APEXporter_${build.version}-build${build.number}.zip"/>
+
+<!--    <delete dir="${outputDir}"/> -->
+    <delete dir="${unpackDir}"/>
+    <mkdir  dir="${unpackDir}" />
+<!--    <mkdir  dir="${outputDir}" /> -->
+    <copy file="build.properties" tofile="${unpackDir}/build.properties"/>
+  </target>
+
+  <target name="createJar" depends="init">
+    <javac srcdir    = "src"
+           includes  = "symbolthree/apex/*.*"
+           destdir   = "${unpackDir}"
+           classpath = "lib\ojdbc8.jar"
+           source    = "1.8"
+           target    = "1.8"
+           debug     = "on"
+  />
+
+  <copy file="src/symbolthree/apex/banner.txt" tofile="${unpackDir}/symbolthree/apex/banner.txt" />
+
+  <unzip src="lib\ojdbc8.jar" dest="unpack"/>
+
+  <jar destfile="APEXporter.jar">
+    <fileset dir="${unpackDir}"/>
+    <manifest>
+      <attribute name="Main-Class" value="symbolthree.apex.APEXporter"/>
+      <attribute name="Implementation-Vendor" value="www.symbolthree.com"/>
+      <attribute name="Implementation-Title" value="APEXporter"/>
+      <attribute name="Implementation-Version" value="${build.version}-build${build.number}"/>
+    </manifest>
+  </jar>
+
+  </target>
+
+  <target name="createEXE" depends="createJar">
+    <delete file="launch4j.xml"/>
+    <copy file="launch4j-template.xml" tofile="launch4j.xml"/>
+    <replace file="launch4j.xml" token="@build.version@" value="${build.version}"/>
+    <replace file="launch4j.xml" token="@build.number@"  value="${build.number}"/>
+
+    <launch4j configFile="launch4j.xml"/>
+
+  </target>
+  <target name="zip" depends="createEXE">
+    <copy file="APEXporter-template.conf" tofile="${outputDir}/APEXporter/APEXporter.conf"/>
+    <!-- <copy file="readme.html" tofile="${outputDir}/APEXporter/readme.html"/> -->
+    <copy file="APEXporter.exe" tofile="${outputDir}/APEXporter/APEXporter.exe"/>
+	<copy file="APEXporter.jar" tofile="${outputDir}/APEXporter/APEXporter.jar"/>
+    <mkdir dir="${outputDir}/APEXporter/output"/>
+    <zip destfile="${outputDir}/APEXporter_${build.version}-build${build.number}.zip">
+      <zipfileset dir="${outputDir}" includes="APEXporter/*"/>
+     </zip>
+     <delete dir="${outputDir}/APEXporter"/>
+  </target>
+</project>
+
