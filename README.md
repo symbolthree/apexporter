@@ -10,6 +10,8 @@
 
 In each Oracle APEX release, the Export program (APEXExport.class) works only for that specific version, and a specific JRE version is needed to run this Java class.  Using a series of argument also makes the program very difficult to use.  I write this small utility to do the export simple and easy.
 
+Former releases can be found in [SourceForge](https://sourceforge.net/projects/apexexporter/)
+
 ## Features
 
 - Works for Oracle APEX from version 19.1 to 24.2
